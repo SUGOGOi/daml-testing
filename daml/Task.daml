@@ -1,0 +1,57 @@
+module Task where
+
+import Daml.Script
+
+template Task
+  with
+    owner : Party           -- Who owns this task
+    description: Text       -- What the task is about
+    completed : Bool        -- Is it done?
+  where
+    signatory owner         -- Owner must approve creation/deletion
+    observer owner          -- Owner can see this task
+
+    -- Choice to UPDATE the task
+    choice UpdateTask : ContractId Task
+      with
+        newDescription: Text
+        newCompleted: Bool
+      controller owner   -- Only owner can update
+      do
+        archive self        -- Delete the old task
+        create this with    -- Create new task with updated fields
+          description = newDescription
+          completed = newCompleted
+    
+    -- Choice to DELETE the task
+    choice DeleteTask : ()
+      controller owner      -- Only owner can delete
+      do
+        archive self        -- Remove the task from ledger
+      
+
+
+-- Test script to try out the Task template
+testTask : Script ()
+testTask = do
+  --create a test user
+  alice <- allocateParty "Alice"
+
+  -- Alice creates a task
+  taskId <- submit alice do
+    createCmd Task with
+      owner = alice
+      description = "Learn DAML"
+      completed = False
+  
+  --Alice Updates the task
+  updatedTaskId <- submit alice do
+    exerciseCmd taskId UpdateTask with
+      newDescription = "Learn DAML curd"
+      newCompleted = True
+  
+  --Alice Deletes The Task
+  submit alice do
+    exerciseCmd updatedTaskId DeleteTask
+
+  return ()
