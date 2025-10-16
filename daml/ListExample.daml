@@ -1,0 +1,35 @@
+module ListExample where
+
+import Daml.Script
+import DA.List 
+
+listTest: Script ()
+listTest = script do
+
+    let
+        intList = [1,2,4]
+        fruitList = ["orange", "apple","banana"]
+        veggieList = ["carrot", "potato"]
+
+        rangeList = [10 .. 20]
+        evenList = [2,4 .. 20]
+
+        -- both <> and ++, ++ works with list
+        fruitAndVeggieList = fruitList <> veggieList 
+
+    debug $ "Head: " <> show (head fruitList)
+    debug $ "Tail: " <> show (tail fruitList)
+    debug $ "Last: " <> show (last fruitList)
+    debug $ "sort: " <> show (sort fruitList)
+    debug $ "init: " <> show (init fruitList)
+    debug $ "reverse: " <> show (reverse fruitList)
+    debug $ "take 2: " <> show (take 2 fruitList)
+    debug $ "elem: " <> show (elem "apple" fruitList)
+    debug $ "Int List: " <> show intList
+    debug $ "Sum int list: " <> show (sum intList)
+    debug $ "Product int list: " <> show (product intList)
+    debug $ "Range list: " <> show rangeList
+    debug $ "Even list: " <> show evenList
+    debug $ "Fruit and Veggie : " <> show fruitAndVeggieList
+    debug $ "length :" <> show (length fruitList)
+    debug $ "prepend: " <> show("mango" :: fruitList)

@@ -2,9 +2,20 @@ module Functions where
 import Daml.Script
 
 
-increment : Int -> Int
+-- increment : Int -> Int
 increment n = n + 1
+
+
+-- add: Int -> Int -> Int
+add x y = x+y
+
+
+-- multiplyFunc : Int -> Int -> Int
+multiplyFunc a b = a*b
 
 testFunctions: Script()
 testFunctions = script do
     debug $ increment 3
+    debug (increment 4)
+    debug $ add 5 5
+    debug $ multiplyFunc 4 4

@@ -1,0 +1,36 @@
+module Time where
+
+import Daml.Script
+import DA.Date
+import DA.Time
+
+dataTypeTest: Script()
+dataTypeTest = script do
+
+    --set simulated ledger time to now(2025-10-17 12:00:00)
+    setTime (datetime 2025 Oct 17 12 00 00)
+    now1 <- getTime
+
+    debug $ "Time: " <> show now1
+
+    let 
+        dateOfBirth: Date
+        dateOfBirth = date 2000 Dec 02
+
+        timeOfBirth: Time
+        timeOfBirth = time dateOfBirth 15 30 10
+
+        age1: RelTime
+        age1 = subTime now1 timeOfBirth
+
+        microsecondsValue = convertRelTimeToMicroseconds age1
+        seconds = microsecondsValue / 1000000
+        days = seconds / 86400 --no of sec in a day
+        years = days / 365
+
+    debug $ "DOB: " <> show dateOfBirth
+    debug $ "Time: " <> show timeOfBirth
+    debug $ "Age: " <> show age1
+    debug $ "Approx Age: " <> show years <> " years"
+
+    return ()
