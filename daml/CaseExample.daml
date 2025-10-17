@@ -1,0 +1,15 @@
+module CaseExample where
+
+import Daml.Script
+
+caseOddOrEven : Int -> Text
+caseOddOrEven x = case (x%2) of
+    0 -> "even"
+    1 -> "odd"
+    _ -> "unknown"
+
+
+testCaseOddOrEven: Script ()
+testCaseOddOrEven =  script do
+    debug $ caseOddOrEven 9
+    debug $ caseOddOrEven 8

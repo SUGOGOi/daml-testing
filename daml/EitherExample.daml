@@ -1,0 +1,14 @@
+module EitherExample where
+
+import Daml.Script
+
+someFunction: Int -> Either Text Int
+someFunction x = 
+    if(x<0) then 
+        Left "Error"
+    else Right (x +2)
+
+testSomeFunctions : Script ()
+testSomeFunctions = script do
+    debug $ someFunction (-2)
+    debug $ someFunction 5

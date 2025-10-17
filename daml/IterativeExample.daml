@@ -1,0 +1,19 @@
+module IterativeExample where
+
+import Daml.Script
+
+fibonacci: Int -> Int
+fibonacci n
+    | n <= 1 = n
+    | otherwise = fibonacci (n-1) + fibonacci (n -2)
+
+testFibonacci: Script ()
+testFibonacci = script do
+    debug $ fibonacci 0    
+    debug $ fibonacci 1    
+    debug $ fibonacci 2    
+    debug $ fibonacci 3    
+    debug $ fibonacci 4    
+    debug $ fibonacci 5    
+    debug $ fibonacci 6    
+    debug $ fibonacci 7    

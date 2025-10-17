@@ -1,0 +1,24 @@
+module FindBMI where
+
+import Daml.Script
+
+-- findBmi: Decimal -> Decimal -> Text
+-- findBmi height weight
+--     | weight / (height ^ 2 ) <= 18.5 = "Underweight"
+--     | weight / (height ^ 2 ) <= 25.0 = "Normal"
+--     | weight / (height ^ 2 ) <= 30.0 = "Overweight"
+--     | otherwise = "Obese"
+
+
+findBmi: Decimal -> Decimal -> Text
+findBmi height weight
+    | bmi <= 18.5 = "Underweight"
+    | bmi <= 25.0 = "Normal"
+    | bmi <= 30.0 = "Overweight"
+    | otherwise = "Obese"
+    where bmi = weight / (height ^ 2 )
+
+testFindBmi: Script ()
+testFindBmi = script do
+    debug $ findBmi 1.5 50.0
+    debug $ findBmi 1.5 60.0
