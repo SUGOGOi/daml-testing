@@ -1,0 +1,10 @@
+module ModuloExample where
+
+import Daml.Script
+
+moduleUsingMap: [Int] -> Int -> [Int]
+moduleUsingMap x y = map (% y) x
+
+testModuleUsingMap: Script ()
+testModuleUsingMap = script do
+    debug $ moduleUsingMap [0..5] 5

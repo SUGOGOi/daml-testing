@@ -1,0 +1,21 @@
+module FoldExample where
+
+import Daml.Script
+
+sumList: [Int] -> Int
+sumList x = foldl (+) 0 x
+
+listToText: [Int] -> Text
+listToText x = foldl (\acc y -> acc <> show y) "" x
+
+
+reverseListToText: [Int] -> Text
+reverseListToText x = foldr (\y acc -> acc <> show y) "" x
+
+testFolds: Script ()
+testFolds = script do
+
+    debug $ sumList [1..10]
+    debug $ listToText [1..10]
+    debug $ reverseListToText [1..10]
+

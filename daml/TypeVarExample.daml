@@ -1,0 +1,9 @@
+module TypeVarExample where
+
+import Daml.Script
+
+add x y = x + y
+
+test: Script ()
+test = script do
+    debug $ add 2 2
