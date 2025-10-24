@@ -1,6 +1,6 @@
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/digital-asset/daml/blob/main/LICENSE)
 
-# my-daml-crud-app
+# daml-fundamental-course-1
 
 See [documentation] for details.
 
