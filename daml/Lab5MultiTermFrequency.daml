@@ -1,0 +1,29 @@
+module Lab5MultiTermFrequency where
+
+import Daml.Script
+import DA.Text (words)
+
+--Helper Function
+termFrequency : Text -> Text -> Decimal
+termFrequency x t =
+    let wordsList = words t 
+        total = length wordsList
+        count = length (filter (== x) wordsList)
+    in if total == 0 then 0.0 else (intToDecimal count/ intToDecimal total)
+
+-- Part 1: using Map
+multiTermFrequency : Text -> [Text] -> [Decimal]
+multiTermFrequency x y = map (termFrequency x) y
+
+--Test Script
+testMultiTermFrequency : Script ()
+testMultiTermFrequency = script do
+    let x = "hello"
+    let y = 
+          [ "hello from the other side I must have called a thousand times"
+          , "You say goodbye and I say hello hello hello"
+          , "hello is it me you’re looking for"
+          , "hello hello is anyone home"
+          ]
+    debug $ multiTermFrequency x y
+    return ()

@@ -1,0 +1,25 @@
+module Lab1 where
+
+import Daml.Script
+
+
+
+-- Lab 1 : Problem statement 1
+quadFunction : Int -> Int -> Int -> Int
+quadFunction x y z = 3 * (x ^ 2) * 2 * y * z 
+
+-- Lab 1 : Problem statement 2
+doubleMe : Multiplicative a => a -> a
+doubleMe x = x * x
+
+doubleUs : (Multiplicative a, Multiplicative b) => a -> b -> (a, b)
+doubleUs x y = (x*x, y*y)
+
+testFunction : Script ()
+testFunction = script do
+    debug $ quadFunction 1 2 3
+    debug $ (\x y z -> 3 * (x ^ 2) * 2 * y * z ) 1 2 3
+
+
+    debug $ doubleMe 4
+    debug $ doubleUs 4 5

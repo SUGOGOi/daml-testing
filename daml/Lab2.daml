@@ -1,0 +1,34 @@
+module Lab2 where
+
+import Daml.Script
+import DA.Map as Map
+import DA.List -- ✅ Needed for head, tail, fst, snd
+
+-- PS: 1, Extract notes and meanings without iterative functions and with
+extractSong : Script ()
+extractSong = script do
+    let song = [("do", "a deer, a female deer"), 
+                ("re", "a drop of golden sun"), 
+                ("mi", "a name, I call myself"), 
+                ("fa", "a long long way to run")]
+
+    -- Extract tuples one by one
+    let first  = head song
+    let second = head (tail song)
+    let third  = head (tail (tail song))
+    let fourth = head (tail (tail (tail song)))
+
+    -- Use fst and snd to extract first and second elements of tuples
+    let notes    = [fst first, fst second, fst third, fst fourth]
+    let meanings = [snd first, snd second, snd third, snd fourth]
+
+    debug notes
+    debug meanings
+
+    let notesMap = fromList song
+
+    debug $ Map.lookup "do" notesMap
+    debug $ Map.lookup "re" notesMap
+    debug $ Map.lookup "mi" notesMap
+    debug $ Map.lookup "fa" notesMap
+

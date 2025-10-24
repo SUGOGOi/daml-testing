@@ -1,0 +1,19 @@
+module LabSecond where
+
+import Daml.Script
+import DA.Text (words)
+
+termFrequency : Text -> Text -> Decimal
+termFrequency word text =
+  let ws = words text
+      count = length (filter (== word) ws)
+      total = length ws
+  in if total == 0 then 0.0 else intToDecimal count / intToDecimal total
+
+testTermFrequency : Script ()
+testTermFrequency = script do
+  debug $ termFrequency "long" "a long long way to run"
+  debug $ termFrequency "a" "a long long way to run"
+  debug $ termFrequency "run" "a long long way to run"
+  debug $ termFrequency "missing" "a long long way to run"
+
